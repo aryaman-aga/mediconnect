@@ -1,0 +1,20 @@
+spring:
+  data:
+    mongodb:
+      database: mediconnect_test
+
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 6.0.8
+
+app:
+  jwt:
+    secret: dGVzdFNlY3JldEtleUZvck1lZGlDb25uZWN0VGVzdGluZzIwMjQ=
+    expiration: 3600000
+  allowed-origins: http://localhost:3000
+
+logging:
+  level:
+    com.mediconnect: WARN

@@ -1,0 +1,24 @@
+spring:
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb+srv://aryaman2212_db_user:57aNR4QRyp2mQRxT@mediconnect.x9lwwc1.mongodb.net/mediconnect?appName=MediConnect}
+  mvc:
+    pathmatch:
+      use-suffix-pattern: false
+
+server:
+  port: ${PORT:8080}
+  error:
+    include-message: always
+    include-binding-errors: always
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:bXlTdXBlclNlY3JldEtleUZvck1lZGlDb25uZWN0QXBwbGljYXRpb24yMDI0}
+    expiration: ${JWT_EXPIRATION:86400000}
+  allowed-origins: ${ALLOWED_ORIGINS:http://localhost:3000,http://localhost:5173}
+
+logging:
+  level:
+    com.mediconnect: DEBUG
+    org.springframework.security: INFO

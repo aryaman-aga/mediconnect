@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: mediconnect-backend
+    env: java
+    region: oregon
+    buildCommand: cd backend && mvn clean package -DskipTests
+    startCommand: java -jar backend/target/mediconnect-backend-1.0.0.jar
+    envVars:
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_EXPIRATION
+        value: "86400000"
+      - key: ALLOWED_ORIGINS
+        sync: false
+    healthCheckPath: /api/health
+    plan: free
