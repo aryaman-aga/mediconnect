@@ -1,6 +1,7 @@
 package com.mediconnect.component;
 
 import com.mediconnect.model.*;
+import com.mediconnect.repository.AppointmentRepository;
 import com.mediconnect.repository.DoctorRepository;
 import com.mediconnect.repository.PatientRepository;
 import com.mediconnect.repository.UserRepository;
@@ -21,10 +22,20 @@ public class DataSeeder implements CommandLineRunner {
     @Autowired private UserRepository userRepository;
     @Autowired private DoctorRepository doctorRepository;
     @Autowired private PatientRepository patientRepository;
+    @Autowired private AppointmentRepository appointmentRepository;
     @Autowired private PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) {
+        boolean needsReset = userRepository.existsByEmail("sarah.johnson@mediconnect.com");
+        if (needsReset) {
+            log.info("Detected old seed data. Resetting database to update to Indian names...");
+            appointmentRepository.deleteAll();
+            doctorRepository.deleteAll();
+            patientRepository.deleteAll();
+            userRepository.deleteAll();
+        }
+
         if (userRepository.count() > 0) { log.info("Database already seeded, skipping."); return; }
         log.info("Seeding database with sample data...");
         seedDoctors();
@@ -37,21 +48,21 @@ public class DataSeeder implements CommandLineRunner {
                      String img, double rating, int reviews, int exp) {}
 
         List<Seed> seeds = List.of(
-            new Seed("Dr. Sarah Johnson", "sarah.johnson@mediconnect.com", "Cardiology", "City Heart Institute",
+            new Seed("Dr. Shalini Sharma", "shalini.sharma@mediconnect.com", "Cardiology", "Delhi Heart Institute",
                 "Interventional Cardiologist with 15+ years experience.", "https://randomuser.me/api/portraits/women/44.jpg", 4.9, 127, 15),
-            new Seed("Dr. Michael Chen", "michael.chen@mediconnect.com", "Neurology", "Brain & Spine Center",
+            new Seed("Dr. Manoj Kumar", "manoj.kumar@mediconnect.com", "Neurology", "Max Brain & Spine Center",
                 "Board-certified neurologist specializing in epilepsy and stroke.", "https://randomuser.me/api/portraits/men/32.jpg", 4.8, 98, 12),
-            new Seed("Dr. Emily Rodriguez", "emily.rodriguez@mediconnect.com", "Pediatrics", "Children's Wellness Clinic",
+            new Seed("Dr. Ekta Roy", "ekta.roy@mediconnect.com", "Pediatrics", "Fortis Children's Clinic",
                 "Compassionate pediatrician for newborns to teenagers.", "https://randomuser.me/api/portraits/women/68.jpg", 4.9, 214, 10),
-            new Seed("Dr. James Wilson", "james.wilson@mediconnect.com", "Orthopedics", "Sports Medicine Institute",
+            new Seed("Dr. Jitendra Verma", "jitendra.verma@mediconnect.com", "Orthopedics", "Apollo Sports Medicine Institute",
                 "Orthopedic surgeon specializing in sports injuries and joint replacement.", "https://randomuser.me/api/portraits/men/75.jpg", 4.7, 89, 18),
             new Seed("Dr. Priya Patel", "priya.patel@mediconnect.com", "Dermatology", "Skin & Aesthetic Clinic",
                 "Dermatologist specializing in medical and cosmetic dermatology.", "https://randomuser.me/api/portraits/women/26.jpg", 4.8, 156, 8),
-            new Seed("Dr. Robert Kim", "robert.kim@mediconnect.com", "Psychiatry", "Mental Health Associates",
+            new Seed("Dr. Rajesh Iyer", "rajesh.iyer@mediconnect.com", "Psychiatry", "MindCare Mental Health Associates",
                 "Psychiatrist providing evidence-based treatment.", "https://randomuser.me/api/portraits/men/52.jpg", 4.9, 73, 14),
-            new Seed("Dr. Lisa Thompson", "lisa.thompson@mediconnect.com", "Gynecology", "Women's Health Center",
+            new Seed("Dr. Leela Nair", "leela.nair@mediconnect.com", "Gynecology", "Manipal Women's Health Center",
                 "OB/GYN specializing in minimally invasive surgery.", "https://randomuser.me/api/portraits/women/12.jpg", 4.8, 192, 11),
-            new Seed("Dr. David Martinez", "david.martinez@mediconnect.com", "General Practice", "Family Health Clinic",
+            new Seed("Dr. Devendra Joshi", "devendra.joshi@mediconnect.com", "General Practice", "Narayana Family Health Clinic",
                 "Family medicine physician for patients of all ages.", "https://randomuser.me/api/portraits/men/15.jpg", 4.6, 241, 7)
         );
 
@@ -68,21 +79,21 @@ public class DataSeeder implements CommandLineRunner {
                     .specialty(s.specialty()).hospital(s.hospital()).bio(s.bio())
                     .imageUrl(s.img()).rating(s.rating()).reviewCount(s.reviews())
                     .experience(s.exp()).available(true).availableSlots(slots)
-                    .consultationFee("$120").education("MD, Harvard Medical School")
-                    .languages(List.of("English", "Spanish")).build();
+                    .consultationFee("$120").education("MD, AIIMS Delhi")
+                    .languages(List.of("English", "Hindi")).build();
             doctorRepository.save(doctor);
         }
     }
 
     private void seedPatient() {
-        User user = User.builder().name("John Patient").email("patient@mediconnect.com")
+        User user = User.builder().name("Aarav Sharma").email("patient@mediconnect.com")
                 .password(passwordEncoder.encode("password123")).role(Role.PATIENT).build();
         user = userRepository.save(user);
 
         Patient patient = Patient.builder()
-                .userId(user.getId()).name("John Patient").email("patient@mediconnect.com")
-                .phone("+1 (555) 000-1234").dateOfBirth("1990-05-15").bloodGroup("O+")
-                .address("123 Main St, New York, NY 10001").gender("Male").build();
+                .userId(user.getId()).name("Aarav Sharma").email("patient@mediconnect.com")
+                .phone("+91 98765 43210").dateOfBirth("1995-08-15").bloodGroup("O+")
+                .address("Flat 402, Shanti Kunj, Sector 21, Noida, UP 201301").gender("Male").build();
         patientRepository.save(patient);
     }
 }

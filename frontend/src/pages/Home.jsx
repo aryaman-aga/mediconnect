@@ -65,7 +65,7 @@ export default function Home() {
               <div className="hc-header">
                 <div className="hc-avatar"><DoctorIcon size={28} /></div>
                 <div>
-                  <div className="hc-name">Dr. Sarah Johnson</div>
+                  <div className="hc-name">Dr. Shalini Sharma</div>
                   <div className="hc-specialty">Cardiologist</div>
                 </div>
                 <div className="hc-badge">Available</div>
@@ -81,7 +81,7 @@ export default function Home() {
             <div className="hero-card hero-card-stat">
               <StarRow />
               <div className="hcs-text">"Best healthcare platform I've ever used!"</div>
-              <div className="hcs-author">— Maria K., Patient</div>
+              <div className="hcs-author">— Meera K., Patient</div>
             </div>
           </div>
         </div>

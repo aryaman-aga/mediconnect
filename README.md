@@ -42,7 +42,7 @@ npm run dev
 ### Demo Credentials
 After the app seeds the database on first run:
 - **Patient**: `patient@mediconnect.com` / `password123`
-- **Any seeded doctor**: `sarah.johnson@mediconnect.com` / `password123`
+- **Any seeded doctor**: `shalini.sharma@mediconnect.com` / `password123`
 
 ---
 

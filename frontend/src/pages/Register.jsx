@@ -130,7 +130,7 @@ export default function Register() {
                     <input
                       type="text"
                       className={`form-input ${errors.name ? 'error' : ''}`}
-                      placeholder={role === 'DOCTOR' ? 'Dr. Jane Smith' : 'John Doe'}
+                      placeholder={role === 'DOCTOR' ? 'Dr. Rajesh Sharma' : 'Aarav Patel'}
                       value={form.name}
                       onChange={set('name')}
                     />
