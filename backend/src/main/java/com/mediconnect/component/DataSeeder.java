@@ -27,9 +27,9 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        boolean needsReset = userRepository.existsByEmail("sarah.johnson@mediconnect.com");
+        boolean needsReset = !userRepository.existsByEmail("amit.mehta@mediconnect.com");
         if (needsReset) {
-            log.info("Detected old seed data. Resetting database to update to Indian names...");
+            log.info("Detected missing seed data. Resetting database to update to 10 Indian doctors...");
             appointmentRepository.deleteAll();
             doctorRepository.deleteAll();
             patientRepository.deleteAll();
@@ -63,7 +63,11 @@ public class DataSeeder implements CommandLineRunner {
             new Seed("Dr. Leela Nair", "leela.nair@mediconnect.com", "Gynecology", "Manipal Women's Health Center",
                 "OB/GYN specializing in minimally invasive surgery.", "https://randomuser.me/api/portraits/women/12.jpg", 4.8, 192, 11),
             new Seed("Dr. Devendra Joshi", "devendra.joshi@mediconnect.com", "General Practice", "Narayana Family Health Clinic",
-                "Family medicine physician for patients of all ages.", "https://randomuser.me/api/portraits/men/15.jpg", 4.6, 241, 7)
+                "Family medicine physician for patients of all ages.", "https://randomuser.me/api/portraits/men/15.jpg", 4.6, 241, 7),
+            new Seed("Dr. Amit Mehta", "amit.mehta@mediconnect.com", "Oncology", "Tata Memorial Cancer Hospital",
+                "Surgical Oncologist with 14+ years of experience in advanced cancer care.", "https://randomuser.me/api/portraits/men/46.jpg", 4.9, 112, 14),
+            new Seed("Dr. Ananya Sen", "ananya.sen@mediconnect.com", "General Practice", "Max Super Speciality Hospital",
+                "Experienced family medicine specialist dedicated to comprehensive preventive care.", "https://randomuser.me/api/portraits/women/54.jpg", 4.7, 142, 9)
         );
 
         List<String> slots = List.of("09:00 AM", "09:30 AM", "10:00 AM", "10:30 AM", "11:00 AM",
